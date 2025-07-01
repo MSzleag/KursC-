@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Unreal Engine\\KursCPP\\Zadanie2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6F20E395-B46E-481A-871E-966BB2443A96}|Project1\\Project1.vcxproj|E:\\Unreal Engine\\KursCPP\\Zadanie2\\Project1\\HomeWork_2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6F20E395-B46E-481A-871E-966BB2443A96}|Project1\\Project1.vcxproj|solutionrelative:Project1\\HomeWork_2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomeWork_2.cpp",
+              "DocumentMoniker": "E:\\Unreal Engine\\KursCPP\\Zadanie2\\Project1\\HomeWork_2.cpp",
+              "RelativeDocumentMoniker": "Project1\\HomeWork_2.cpp",
+              "ToolTip": "E:\\Unreal Engine\\KursCPP\\Zadanie2\\Project1\\HomeWork_2.cpp",
+              "RelativeToolTip": "Project1\\HomeWork_2.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-08T08:23:08.085Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
