@@ -5,24 +5,24 @@
 #include <algorithm>
 #include <iostream>
 
+Hand::Hand() {};
+
 Hand::Hand(Deck& deck)
 {
 	Inialize(deck);
 }
 
 void Hand::Inialize(Deck &deck) {
-	for (int i = 0;i < 5; i++) {
-		h_cards[i] = deck.DealCard();
+	for (int i = 0;i < amountInHand; i++) {
+		m_cards[i] = deck.DealCard();
 	}
-	sortHand();
-
+	SortHand();
 }
 
 void Hand::SwapCard(Deck& deck,int position) {
-	h_cards[position] = deck.DealCard();
-	sortHand();
+	m_cards[position] = deck.DealCard();
 }
-int Hand::GetHandValue() const {
+int Hand::GetHandValue() const {// Mozna rozbudowac o strukture ukladow
 	if (is_RoyalFlush()) {
 		return 10;
 	} else if (is_StraightFlush()) {
@@ -46,21 +46,21 @@ int Hand::GetHandValue() const {
 	}
 	return 0; 
 }
-void Hand::sortHand() {
-	std::sort(h_cards, h_cards + 5, [](const Card& a, const Card& b) {
+void Hand::SortHand() {
+	std::sort(m_cards, m_cards + amountInHand, [](const Card& a, const Card& b) {
 		return a.value < b.value;
 	});
 }
 void Hand::PrintHand() const {  
-    for (int i = 0; i < 5; ++i) {  
-		std::cout << h_cards[i].toString() << std::endl;
+    for (int i = 0; i < amountInHand; ++i) {
+		std::cout << m_cards[i].toString() << std::endl;
     }  
 }
 bool Hand::is_RoyalFlush() const {
 	int counter = 0;
-	if (h_cards[0].value == Value::Ten && h_cards[1].value == Value::Jack &&
-		h_cards[2].value == Value::Queen && h_cards[3].value == Value::King &&
-		h_cards[4].value == Value::Ace && is_Flush()) {
+	if (m_cards[0].value == Value::Ten && m_cards[1].value == Value::Jack &&
+		m_cards[2].value == Value::Queen && m_cards[3].value == Value::King &&
+		m_cards[4].value == Value::Ace && is_Flush()) {
 			return true;
 		}
 	return false;
@@ -73,10 +73,10 @@ bool Hand::is_StraightFlush() const {
 	return false;
 }
 bool Hand::is_FourOfAKind() const {
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < amountInHand; ++i) {
 		int count = 0;
-		for (int j = 0; j < 5; ++j) {
-			if (h_cards[i].value == h_cards[j].value) {
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
 				count++;
 			}
 		}
@@ -90,26 +90,26 @@ bool Hand::is_FullHouse() const {
 	return (is_ThreeOfAKind() && is_OnePair());
 }
 bool Hand::is_Flush() const {
-	for (int i = 1; i < 5; ++i) {
-		if (h_cards[i].color != h_cards[0].color) {
+	for (int i = 1; i < amountInHand; ++i) {
+		if (m_cards[i].color != m_cards[0].color) {
 			return false;
 		}
 	}
 	return true;
 }
 bool Hand::is_Straight() const {  
-    for (int i = 1; i < 5; ++i) {  
-        if (static_cast<int>(h_cards[i].value) != (static_cast<int>(h_cards[i-1].value) + 1)) {  
+    for (int i = 1; i < amountInHand; ++i) {
+        if (static_cast<int>(m_cards[i].value) != (static_cast<int>(m_cards[i-1].value) + 1)) {  
             return false;  
         }  
     }  
     return true;  
 }
 bool Hand::is_ThreeOfAKind() const {
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < amountInHand; ++i) {
 		int count = 0;
-		for (int j = 0; j < 5; ++j) {
-			if (h_cards[i].value == h_cards[j].value) {
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
 				count++;
 			}
 		}
@@ -121,10 +121,10 @@ bool Hand::is_ThreeOfAKind() const {
 }
 bool Hand::is_TwoPair() const {
 	int pairCount = 0;
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < amountInHand; ++i) {
 		int count = 0;
-		for (int j = 0; j < 5; ++j) {
-			if (h_cards[i].value == h_cards[j].value) {
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
 				count++;
 			}
 		}
@@ -136,10 +136,10 @@ bool Hand::is_TwoPair() const {
 	return pairCount == 2;
 }
 bool Hand::is_OnePair() const {
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < amountInHand; ++i) {
 		int count = 0;
-		for (int j = 0; j < 5; ++j) {
-			if (h_cards[i].value == h_cards[j].value) {
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
 				count++;
 			}
 		}
@@ -156,7 +156,38 @@ bool Hand::is_HighCard() const {
 }
 
 int Hand::getHighCard() const {
-	int highCardValue = static_cast<int>(h_cards[4].value);
+	int highCardValue = static_cast<int>(m_cards[4].value);
 	return highCardValue;
 }
+int Hand::GetPair() const {
+	int biggerPair = 0;
+	for (int i = 0; i < amountInHand; ++i) {
+		int count = 0;
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
+				count++;
+			}
+		}
+		if (count == 2) {
+			if(static_cast<int>(m_cards[i].value) > biggerPair)
+				biggerPair = static_cast<int>(m_cards[i].value);
+			break;
+		}
+	}
+	return biggerPair;
+}
+int Hand::GetThreeOfAKind() const {
+	for (int i = 0; i < amountInHand; ++i) {
+		int count = 0;
+		for (int j = 0; j < amountInHand; ++j) {
+			if (m_cards[i].value == m_cards[j].value) {
+				count++;
+			}
+		}
+		if (count == 3) {
+			return static_cast<int>(m_cards[i].value);
+		}
+	}
+	return -1;
+}	
 

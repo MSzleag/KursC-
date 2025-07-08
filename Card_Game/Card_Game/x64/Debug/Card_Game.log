@@ -1,2 +1,5 @@
-﻿  Hand.cpp
-  Card_Game.vcxproj -> C:\KursCPP\Card_Game\x64\Debug\Card_Game.exe
+﻿  Game.cpp
+  Hand.cpp
+  UI.cpp
+  Generowanie kodu...
+  Card_Game.vcxproj -> E:\Unreal Engine\KursCPP\Card_Game\x64\Debug\Card_Game.exe
